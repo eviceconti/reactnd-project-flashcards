@@ -1,14 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator, BottomTabBar } from 'react-navigation'
-
-const Decks = () => {
-	return (
-		<View>
-      <Text>decks!</Text>
-    </View>
-  )
-}
+import { purple, white, blue, yellow, gray } from './utils/colors'
+import Decks from './components/decks';
 
 const NewDeck = () => {
 	return (
@@ -20,15 +14,29 @@ const NewDeck = () => {
 
 const Tabs = createBottomTabNavigator({
   Decks: {
-    screen: Decks
+    screen: Decks,
   },
   NewDeck: {
     screen: NewDeck
   }
+}, {
+  tabBarOptions: {
+    activeTintColor: yellow,
+    inactiveTintColor: gray,
+    activeBackgroundColor: blue,
+    inactiveBackgroundColor: white,
+    style: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: 40
+    },
+    labelStyle: {
+      fontSize: 20,
+    }
+  }
 });
 
 export default class App extends React.Component {
-  
   render() {
     return (
       <Tabs />
@@ -42,5 +50,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
-  },
+  }
 });
