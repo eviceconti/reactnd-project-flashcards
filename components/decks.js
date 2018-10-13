@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { createBottomTabNavigator, BottomTabBar } from 'react-navigation'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { purple, white, red, black, gray } from '../utils/colors'
 import { Dimensions } from 'react-native';
 
@@ -45,17 +44,24 @@ export default class Decks extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {this.state.decks.map(deck => (
+        {this.state.decks.map((deck, i) => (
           <View key={deck.name} style={styles.card}>
-            <Text style={styles.title}>
-              {deck.name}
-            </Text>
-            <Text style={styles.text}>
-              {deck.cards.length} Cards
-            </Text>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate(
+                'Deck',
+                { deck: this.state.decks[i] }
+              )}
+            >
+              <Text style={styles.title}>
+                {deck.name}
+              </Text>
+              <Text style={styles.text}>
+                {deck.cards.length} Cards
+              </Text>
+              </TouchableOpacity>
           </View>
         ))}
-      </View>
+      </View>   
     )
   }
 }
