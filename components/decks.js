@@ -1,50 +1,20 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-native';
 import { purple, white, red, black, gray } from '../utils/colors'
 import { Dimensions } from 'react-native';
 
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 export default class Decks extends Component {
   state = {
-    decks: [
-      {
-        name: 'Deck1',
-        cards: [
-          {
-            question: 'Q1C1',
-            answer: 'A1C1'
-          },
-          {
-            question: 'Q2C1',
-            answer: 'A2C1'
-          },
-        ]
-      },
-      {
-        name: 'Deck2',
-        cards: [
-          {
-            question: 'Q1C2',
-            answer: 'A1C2'
-          },
-          {
-            question: 'Q2C2',
-            answer: 'A2C2'
-          },
-          {
-            question: 'Q3C2',
-            answer: 'A3C2'
-          },
-        ]
-      }
-    ]
+    decks: null
   }
 
   render() {
+    console.log('render',this.state)
     return (
       <View style={styles.container}>
-        {this.state.decks.map((deck, i) => (
+        {(this.state.decks !== null) && this.state.decks.map((deck, i) => (
           <View key={deck.name} style={styles.card}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate(
@@ -63,6 +33,38 @@ export default class Decks extends Component {
         ))}
       </View>   
     )
+  }
+
+  componentDidMount() {
+    const initialDecks = [
+      {
+        name: 'JavaScript',
+        cards: [
+          {
+            question: 'What is the best Programming Language',
+            answer: 'Javascript'
+          },
+          {
+            question: 'What is the best Library for JS',
+            answer: 'React and React Native'
+          },
+        ]
+      }
+    ]
+
+    const asyncKeys = AsyncStorage.getAllKeys()
+
+    if (!asyncKeys.decks) {
+      AsyncStorage.setItem('decks', JSON.stringify({ decks: initialDecks }))
+    }
+
+    AsyncStorage.getItem('decks')
+      .then(response => {
+        console.log('response',response)
+        const decks = JSON.parse(response)
+        console.log('decks',decks)
+        this.setState({ decks: decks.decks })
+      })
   }
 }
 
