@@ -11,7 +11,7 @@ export default class Decks extends Component {
   }
 
   render() {
-    console.log('render',this.state)
+    console.log('render decks component', this.state)
     return (
       <View style={styles.container}>
         {(this.state.decks !== null) && this.state.decks.map((deck, i) => (
@@ -60,9 +60,7 @@ export default class Decks extends Component {
 
     AsyncStorage.getItem('decks')
       .then(response => {
-        console.log('response',response)
         const decks = JSON.parse(response)
-        console.log('decks',decks)
         this.setState({ decks: decks.decks })
       })
   }

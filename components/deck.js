@@ -8,7 +8,7 @@ export default class Decks extends Component {
   deck = this.props.navigation.state.params.deck
 
   render() {
-    console.log(this.deck);
+    console.log('render deck component',this.deck);
     return (
       <View style={styles.container}>
         <View>
@@ -26,6 +26,14 @@ export default class Decks extends Component {
           )}
         >
           <Text>Quiz</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate(
+            'AddCard',
+            { deck: this.deck }
+          )}
+        >
+          <Text>Add Question to Deck</Text>
         </TouchableOpacity>
       </View>
     )

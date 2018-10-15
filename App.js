@@ -4,7 +4,8 @@ import { createBottomTabNavigator, createStackNavigator } from 'react-navigation
 import { purple, white, blue, yellow, gray } from './utils/colors'
 import Decks from './components/decks'
 import Deck from './components/deck'
-import Quiz from './components/quiz';
+import Quiz from './components/quiz'
+import AddCard from './components/addCard'
 
 const NewDeck = () => {
 	return (
@@ -58,7 +59,13 @@ const MainNavigator = createStackNavigator({
   Quiz: {
     screen: Quiz,
     navigationOptions: ({ navigation }) => ({
-      title: `quiz`,
+      title: 'quiz',
+    })
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: ({ navigation }) => ({
+      title: `Add Card to ${navigation.state.params.deck.name} Deck`,
     })
   }
 }, {
