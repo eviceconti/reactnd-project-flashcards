@@ -4,48 +4,34 @@ import { purple, white, red, black, gray } from '../utils/colors'
 import { Dimensions } from 'react-native'
 
 
-export default class AddCard extends Component {
+export default class NewDeck extends Component {
   state = {
-    question: '',
-    answer: ''
+    title: ''
   }
 
-  deck = this.props.navigation.state.params.deck
-  addCardDecks = this.props.navigation.state.params.addCard
-
   render() {
-    console.log('addCard Component', this.state)
+    console.log('newDeck Component', this.state)
     return (
       <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.title}>
-          Question
+          What is the title of your new Deck?
         </Text>
         <TextInput 
           style={styles.text} 
-          value={this.state.question} 
-          onChangeText={(question) => this.setState({ question })}
-        >
-        </TextInput>
-        <Text style={styles.title}>
-          Answer
-        </Text>
-        <TextInput 
-          style={styles.text} 
-          value={this.state.answer} 
-          onChangeText={(answer) => this.setState({ answer })}
-        >
-        </TextInput>
+          value={this.state.title} 
+          onChangeText={(title) => this.setState({ title })}
+        />
         
-        <TouchableOpacity onPress={() => this.addCardCall()}>
+        <TouchableOpacity onPress={() => this.newDeckCall()}>
           <Text>Add Question to Deck</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     )
   }
 
-  addCardCall() {
-    console.log(this.deck.name, this.state.question, this.state.answer)
-    this.addCardDecks(this.deck.name, this.state.question, this.state.answer)
+  newDeckCall() {
+    console.log(this.state.title)
+    //this.addCardDecks(this.deck.name, this.state.question, this.state.answer)
   }
 }
 

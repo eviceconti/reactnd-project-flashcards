@@ -6,9 +6,10 @@ import { Dimensions } from 'react-native';
 
 export default class Decks extends Component {
   deck = this.props.navigation.state.params.deck
+  addCard = this.props.navigation.state.params.addCard
 
   render() {
-    console.log('render deck component',this.deck);
+    console.log('render deck component',this.deck, this.addCard);
     return (
       <View style={styles.container}>
         <View>
@@ -30,7 +31,7 @@ export default class Decks extends Component {
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate(
             'AddCard',
-            { deck: this.deck }
+            { deck: this.deck, addCard: this.addCard }
           )}
         >
           <Text>Add Question to Deck</Text>

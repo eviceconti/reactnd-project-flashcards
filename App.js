@@ -6,14 +6,7 @@ import Decks from './components/decks'
 import Deck from './components/deck'
 import Quiz from './components/quiz'
 import AddCard from './components/addCard'
-
-const NewDeck = () => {
-	return (
-		<View>
-      <Text>new deck!</Text>
-    </View>
-  )
-}
+import NewDeck from './components/newDeck'
 
 const Tabs = createBottomTabNavigator({
   Decks: {
@@ -58,7 +51,7 @@ const MainNavigator = createStackNavigator({
   },
   Quiz: {
     screen: Quiz,
-    navigationOptions: ({ navigation }) => ({
+    navigationOptions: () => ({
       title: 'quiz',
     })
   },
