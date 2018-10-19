@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-native';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-native'
+
+import { setDecks } from '../redux/actions/index'
 import { purple, white, red, black, gray } from '../utils/colors'
 import { Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window')
 
-export default class Decks extends Component {
-  state = {
-    decks: null
-  }
+class Decks extends Component {
 
   render() {
-    console.log('render decks component', this.state, this.props.state)
+    console.log('render decks component', this.props.decks)
     return (
       <View style={styles.container}>
-        {(this.state.decks !== null) && this.state.decks.map((deck, i) => (
+        {(this.props.decks.length > 0) && this.props.decks.map((deck, i) => (
           <View key={deck.name} style={styles.card}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate(
                 'Deck', { 
-                  deck: this.state.decks[i],
+                  deck: this.props.decks[i],
                   addCard: this.addCard
                 }
               )}
@@ -60,12 +60,12 @@ export default class Decks extends Component {
         const asyncKeys = keys
         console.log('keys', asyncKeys)
         if (!asyncKeys.decks) {
-          AsyncStorage.setItem('decks', JSON.stringify({ decks: initialDecks }))
-          this.setState({ decks: initialDecks })
+          AsyncStorage.setItem('decks', JSON.stringify(initialDecks))
+          this.props.setDecks(initialDecks)
         } else {
           AsyncStorage.getItem('decks')
             .then(decks => {
-              this.setState({ decks: decks })
+              this.props.setDecks({ decks })
             })
         }
       });
@@ -108,6 +108,21 @@ export default class Decks extends Component {
     this.props.navigation.navigate('Home')
   }
 }
+
+// Redux.
+function mapStateToProps(state) {
+  return {
+    decks: state.decks
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    setDecks: decks => dispatch(setDecks(decks)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Decks);
 
 const styles = StyleSheet.create({
   container: {

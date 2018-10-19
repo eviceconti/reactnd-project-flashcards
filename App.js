@@ -1,12 +1,18 @@
-import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React from 'react'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
-import { purple, white, blue, yellow, gray } from './utils/colors'
+
+import reducer from './redux/reducer/index'
+import { white, blue, yellow, gray } from './utils/colors'
 import Decks from './components/decks'
 import Deck from './components/deck'
 import Quiz from './components/quiz'
 import AddCard from './components/addCard'
 import NewDeck from './components/newDeck'
+
+const store = createStore(reducer)
 
 const Tabs = createBottomTabNavigator({
   Decks: {
@@ -68,8 +74,10 @@ const MainNavigator = createStackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <MainNavigator />
-    );
+      <Provider store={store}>
+        <MainNavigator />
+      </Provider>
+    )
   }
 }
 
