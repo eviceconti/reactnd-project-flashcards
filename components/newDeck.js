@@ -33,6 +33,12 @@ class NewDeck extends Component {
 
   newDeckCall() {
     this.props.addDeck(this.state.title)
+    this.props.navigation.navigate(
+      'Deck', { 
+        deck: { cards: [] },
+        deckName: this.state.title,
+      }
+    )
   }
 }
 

@@ -48,7 +48,7 @@ class AddCard extends Component {
 
   addCardCall = () => {
     this.props.addCard(this.deckName, this.state.question, this.state.answer)
-    this.props.navigation.navigate('Home')
+    this.props.navigation.navigate('Decks')
   }
 }
 

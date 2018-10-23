@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native'
 
 import { setDecks } from '../redux/actions/index'
 import { purple, white, red, black, gray } from '../utils/colors'
 import { Dimensions } from 'react-native';
 
-const { width } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 
 class Decks extends Component {
   decks = {}
@@ -16,9 +16,10 @@ class Decks extends Component {
     console.log('render decks component', this.props.decks, this.props.keys)
     loading = (this.props.keys && this.props.keys.length > 0) ? false: true
     return (
-      <View style={styles.container}>
+      <ScrollView style={{backgroundColor: 'white'}}>
+        <View style={styles.container}>
         {(!loading) && this.props.keys.map((key, i) => (
-          <View key={i} style={styles.card}>
+          <View key={i} style={[styles.card]}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate(
                 'Deck', { 
@@ -37,11 +38,14 @@ class Decks extends Component {
               </TouchableOpacity>
           </View>
         ))}
-      </View>   
+        </View>
+        
+      </ScrollView>   
     )
   }
 
   componentDidMount() {
+    //Uncomment the next line to clear decks. This version don't implements the delete of cards
     //AsyncStorage.clear()
     const initialDecks = {
       'JavaScript': {
@@ -120,7 +124,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: white,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   card: {
     alignItems: 'center',
