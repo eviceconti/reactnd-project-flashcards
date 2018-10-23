@@ -9,6 +9,8 @@ import { Dimensions } from 'react-native';
 const { width } = Dimensions.get('window')
 
 class Decks extends Component {
+  decks = {}
+  keys = []
 
   render() {
     console.log('render decks component', this.props.decks, this.props.keys)
@@ -40,10 +42,7 @@ class Decks extends Component {
   }
 
   componentDidMount() {
-    AsyncStorage.clear()
-    .then(() => {
-      
-    })
+    //AsyncStorage.clear()
     const initialDecks = {
       'JavaScript': {
         cards: [
@@ -64,58 +63,39 @@ class Decks extends Component {
       .then(keys => {
         const asyncKeys = keys
         console.log('keys', asyncKeys)
-        if (!asyncKeys.decks) {
+        let asyncDecks = false
+        asyncKeys.map(key => {
+          if (key === 'decks') {
+            asyncDecks = true
+          }
+        })
+        console.log(asyncDecks)
+        if (!asyncDecks) {
+          console.log('if')
           AsyncStorage.setItem('decks', JSON.stringify(initialDecks))
           AsyncStorage.setItem('keys', JSON.stringify(initialKeys))
           this.props.setDecks(initialDecks, initialKeys)
         } else {
+          console.log('else')
           AsyncStorage.getItem('decks')
+            .then(resp => JSON.parse(resp))
             .then(decks => {
-              this.props.setDecks(decks)
+              console.log(decks)
+              this.decks = decks
             })
           AsyncStorage.getItem('keys')
+          .then(resp => JSON.parse(resp))
             .then(keys => {
-              this.props.setDecks(keys)
+              this.keys = keys
+              this.props.setDecks(this.decks, this.keys)
             })
         }
       });
   }
 
-  setItemsToAsyncStorage = (decks) => {
-    AsyncStorage.setItem('decks', JSON.stringify({ decks: decks.decks }))
-  }
-
-  addCard = (deckName, question, answer) => {
-    this.setState(prevState => {
-      console.log('addCard function', deckName, question, answer, prevState)
-      const deck = prevState.decks.filter(deck => deck.name === deckName)[0]
-      console.log('deck',deck)
-      deck.cards.push({ question, answer })
-      console.log('deck',deck)
-      const newStateDecks = { ...prevState }
-      const index = newStateDecks.decks.map((deck, i) => {
-        if (deck.name === deckName) { return i }
-      })
-      newStateDecks.decks[index] = deck
-      console.log(newStateDecks)
-      return newStateDecks
-      })
-    this.setItemsToAsyncStorage(this.state.decks)
-    this.props.navigation.navigate('Home')
-  }
-
-  newDeck = (deckName) => {
-    this.setState(prevState => {
-      console.log('newCard function', deckName)
-      const decks = prevState.decks.push({ name: deckName, cards: [] })
-      console.log('decks',decks)
-      return {
-        ...prevState,
-        decks
-      }
-    })
-    this.setItemsToAsyncStorage(this.state.decks)
-    this.props.navigation.navigate('Home')
+  componentDidUpdate() {
+    AsyncStorage.setItem('decks', JSON.stringify(this.props.decks))
+    AsyncStorage.setItem('keys', JSON.stringify(this.props.keys))
   }
 }
 
