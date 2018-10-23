@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, TextInput, AsyncStorage } from 'react-native'
 import { purple, white, red, black, gray } from '../utils/colors'
 import { Dimensions } from 'react-native'
 
+import { addCard } from '../redux/actions/index'
 
-export default class AddCard extends Component {
+
+class AddCard extends Component {
   state = {
     question: '',
     answer: ''
   }
 
   deck = this.props.navigation.state.params.deck
-  addCardDecks = this.props.navigation.state.params.addCard
+  deckName = this.props.navigation.state.params.deckName
 
   render() {
-    console.log('addCard Component', this.state)
+    console.log('addCard Component', this.state, this.deck, this.deckName)
     return (
       <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.title}>
@@ -43,11 +46,19 @@ export default class AddCard extends Component {
     )
   }
 
-  addCardCall() {
-    console.log(this.deck.name, this.state.question, this.state.answer)
-    this.addCardDecks(this.deck.name, this.state.question, this.state.answer)
+  addCardCall = () => {
+    this.props.addCard(this.deckName, this.state.question, this.state.answer)
+    this.props.navigation.navigate('Home')
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addCard: (deckName, question, answer) => dispatch(addCard(deckName, question, answer)),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(AddCard);
 
 const styles = StyleSheet.create({
   container: {

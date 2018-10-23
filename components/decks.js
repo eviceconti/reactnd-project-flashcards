@@ -11,24 +11,26 @@ const { width } = Dimensions.get('window')
 class Decks extends Component {
 
   render() {
-    console.log('render decks component', this.props.decks)
+    console.log('render decks component', this.props.decks, this.props.keys)
+    loading = (this.props.keys && this.props.keys.length > 0) ? false: true
     return (
       <View style={styles.container}>
-        {(this.props.decks.length > 0) && this.props.decks.map((deck, i) => (
-          <View key={deck.name} style={styles.card}>
+        {(!loading) && this.props.keys.map((key, i) => (
+          <View key={i} style={styles.card}>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate(
                 'Deck', { 
-                  deck: this.props.decks[i],
+                  deck: this.props.decks[key],
+                  deckName: key,
                   addCard: this.addCard
                 }
               )}
             >
               <Text style={styles.title}>
-                {deck.name}
+                {key}
               </Text>
               <Text style={styles.text}>
-                {deck.cards.length} Cards
+                {this.props.decks[key].cards.length} Cards
               </Text>
               </TouchableOpacity>
           </View>
@@ -38,10 +40,12 @@ class Decks extends Component {
   }
 
   componentDidMount() {
-    //AsyncStorage.clear()
-    const initialDecks = [
-      {
-        name: 'JavaScript',
+    AsyncStorage.clear()
+    .then(() => {
+      
+    })
+    const initialDecks = {
+      'JavaScript': {
         cards: [
           {
             question: 'What is the best Programming Language',
@@ -53,7 +57,8 @@ class Decks extends Component {
           },
         ]
       }
-    ]
+    }
+    const initialKeys = ['JavaScript']
 
     AsyncStorage.getAllKeys()
       .then(keys => {
@@ -61,11 +66,16 @@ class Decks extends Component {
         console.log('keys', asyncKeys)
         if (!asyncKeys.decks) {
           AsyncStorage.setItem('decks', JSON.stringify(initialDecks))
-          this.props.setDecks(initialDecks)
+          AsyncStorage.setItem('keys', JSON.stringify(initialKeys))
+          this.props.setDecks(initialDecks, initialKeys)
         } else {
           AsyncStorage.getItem('decks')
             .then(decks => {
-              this.props.setDecks({ decks })
+              this.props.setDecks(decks)
+            })
+          AsyncStorage.getItem('keys')
+            .then(keys => {
+              this.props.setDecks(keys)
             })
         }
       });
@@ -112,13 +122,14 @@ class Decks extends Component {
 // Redux.
 function mapStateToProps(state) {
   return {
+    keys: state.keys,
     decks: state.decks
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setDecks: decks => dispatch(setDecks(decks)),
+    setDecks: (decks, keys) => dispatch(setDecks(decks, keys)),
   }
 }
 

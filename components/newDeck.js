@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, TextInput, AsyncStorage } from 'react-native'
 import { purple, white, red, black, gray } from '../utils/colors'
 import { Dimensions } from 'react-native'
 
+import { addDeck } from '../redux/actions/index'
 
-export default class NewDeck extends Component {
+class NewDeck extends Component {
   state = {
     title: ''
   }
@@ -23,17 +25,24 @@ export default class NewDeck extends Component {
         />
         
         <TouchableOpacity onPress={() => this.newDeckCall()}>
-          <Text>Add Question to Deck</Text>
+          <Text>Add Deck</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     )
   }
 
   newDeckCall() {
-    console.log(this.state.title)
-    //this.addCardDecks(this.deck.name, this.state.question, this.state.answer)
+    this.props.addDeck(this.state.title)
   }
 }
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addDeck: (deckName) => dispatch(addDeck(deckName)),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(NewDeck);
 
 const styles = StyleSheet.create({
   container: {

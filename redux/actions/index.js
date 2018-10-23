@@ -4,17 +4,18 @@ export const ADD_CARD = 'ADD_CARD'
 export const ADD_DECK = 'ADD_DECK'
 
 // actions
-export const setDecks = (decks) => {
+export const setDecks = (decks, keys) => {
+  console.log(decks, keys)
   return {
     type: SET_DECKS,
-    payload: decks
+    payload: { decks, keys }
   }
 }
 
-export const addCard = (cardName, question, answer) => {
+export const addCard = (deckName, question, answer) => {
   return {
     type: ADD_CARD,
-    payload: { cardName, question, answer }
+    payload: { deckName, question, answer }
   }
 }
 

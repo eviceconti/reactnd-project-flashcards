@@ -6,32 +6,35 @@ import { Dimensions } from 'react-native';
 
 export default class Decks extends Component {
   deck = this.props.navigation.state.params.deck
+  deckName = this.props.navigation.state.params.deckName
   addCard = this.props.navigation.state.params.addCard
 
   render() {
-    console.log('render deck component',this.deck, this.addCard);
+    console.log('render deck component',this.deck, this.deckName, this.addCard);
     return (
       <View style={styles.container}>
         <View>
           <Text style={styles.title}>
-            {this.deck.name}
+            {this.deckName}
           </Text>
           <Text style={styles.text}>
             {this.deck.cards.length} Cards
           </Text>
         </View>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate(
-            'Quiz',
-            { cards: this.deck.cards }
-          )}
-        >
-          <Text>Quiz</Text>
-        </TouchableOpacity>
+        {(this.deck.cards.length > 0) && (
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate(
+              'Quiz',
+              { cards: this.deck.cards }
+            )}
+          >
+            <Text>Quiz</Text>
+          </TouchableOpacity>
+        )}
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate(
             'AddCard',
-            { deck: this.deck, addCard: this.addCard }
+            { deck: this.deck, deckName: this.deckName, addCard: this.addCard }
           )}
         >
           <Text>Add Question to Deck</Text>

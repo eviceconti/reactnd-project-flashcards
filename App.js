@@ -52,7 +52,7 @@ const MainNavigator = createStackNavigator({
   Deck: {
     screen: Deck,
     navigationOptions: ({ navigation }) => ({
-      title: `${navigation.state.params.deck.name}`,
+      title: `${navigation.state.params.deckName}`,
     })
   },
   Quiz: {
@@ -64,7 +64,7 @@ const MainNavigator = createStackNavigator({
   AddCard: {
     screen: AddCard,
     navigationOptions: ({ navigation }) => ({
-      title: `Add Card to ${navigation.state.params.deck.name} Deck`,
+      title: `Add Card to ${navigation.state.params.deckName} Deck`,
     })
   }
 }, {
