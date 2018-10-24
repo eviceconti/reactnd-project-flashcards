@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native';
 import { purple, white, red, black, gray } from '../utils/colors'
+import { setLocalNotification, clearLocalNotification } from '../utils/notifications'
 
 
 export default class Decks extends Component {
@@ -103,6 +104,9 @@ export default class Decks extends Component {
     }
     if (this.state.id + 1 >= this.state.cards.length) {
       this.setState({ showResult: true })
+      //cancel notification after finish a quiz and set a new one for tomorrow
+      clearLocalNotification()
+        .then(setLocalNotification)
     }
     this.showQuestion(true)
   }

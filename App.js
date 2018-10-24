@@ -6,6 +6,7 @@ import { createBottomTabNavigator, createStackNavigator } from 'react-navigation
 
 import reducer from './redux/reducer/index'
 import { white, blue, yellow, gray } from './utils/colors'
+import { setLocalNotification } from './utils/notifications'
 import Decks from './components/decks'
 import Deck from './components/deck'
 import Quiz from './components/quiz'
@@ -53,18 +54,30 @@ const MainNavigator = createStackNavigator({
     screen: Deck,
     navigationOptions: ({ navigation }) => ({
       title: `${navigation.state.params.deckName}`,
+      headerTintColor: yellow,
+      headerStyle: {
+        backgroundColor: blue,
+      }
     })
   },
   Quiz: {
     screen: Quiz,
     navigationOptions: () => ({
-      title: 'quiz',
+      title: 'Quiz',
+      headerTintColor: yellow,
+      headerStyle: {
+        backgroundColor: blue,
+      }
     })
   },
   AddCard: {
     screen: AddCard,
     navigationOptions: ({ navigation }) => ({
       title: `Add Card to ${navigation.state.params.deckName} Deck`,
+      headerTintColor: yellow,
+      headerStyle: {
+        backgroundColor: blue,
+      }
     })
   }
 }, {
@@ -78,6 +91,11 @@ export default class App extends React.Component {
         <MainNavigator />
       </Provider>
     )
+  }
+
+  componentDidMount() {
+    console.log('oi')
+    setLocalNotification()
   }
 }
 

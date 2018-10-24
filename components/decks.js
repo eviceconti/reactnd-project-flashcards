@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, AsyncStorage, StatusBar } from 'react-native'
 
 import { setDecks } from '../redux/actions/index'
 import { purple, white, red, black, gray } from '../utils/colors'
@@ -17,6 +17,7 @@ class Decks extends Component {
     loading = (this.props.keys && this.props.keys.length > 0) ? false: true
     return (
       <ScrollView style={{backgroundColor: 'white'}}>
+      <StatusBar barStyle="light-content"/>
         <View style={styles.container}>
         {(!loading) && this.props.keys.map((key, i) => (
           <View key={i} style={[styles.card]}>
