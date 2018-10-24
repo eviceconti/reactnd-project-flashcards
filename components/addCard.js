@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, TextInput, AsyncStorage } from 'react-native'
-import { purple, white, red, black, gray } from '../utils/colors'
+import { blue, white, yellow, black, gray } from '../utils/colors'
 import { Dimensions } from 'react-native'
 
 import { addCard } from '../redux/actions/index'
@@ -39,8 +39,8 @@ class AddCard extends Component {
         >
         </TextInput>
         
-        <TouchableOpacity onPress={() => this.addCardCall()}>
-          <Text>Add Question to Deck</Text>
+        <TouchableOpacity style={styles.buttonToggle} onPress={() => this.addCardCall()}>
+          <Text style={styles.buttonToggleText}>Add Question to Deck</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     )
@@ -81,5 +81,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: gray,
     margin: 10
-  }
+  },
+  buttonToggle: {
+    paddingTop: 12,
+    paddingBottom: 12,
+    paddingLeft: 12,
+    paddingRight: 12,
+    margin: 12,
+    backgroundColor: yellow,
+    width: 300
+  },
+  buttonToggleText: {
+    color: blue,
+    fontSize: 24,
+    textAlign: 'center',
+  },
 });

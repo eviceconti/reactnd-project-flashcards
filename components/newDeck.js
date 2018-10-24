@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, TextInput, AsyncStorage } from 'react-native'
-import { purple, white, red, black, gray } from '../utils/colors'
+import { yellow, white, blue, black, gray } from '../utils/colors'
 import { Dimensions } from 'react-native'
 
 import { addDeck } from '../redux/actions/index'
@@ -24,8 +24,8 @@ class NewDeck extends Component {
           onChangeText={(title) => this.setState({ title })}
         />
         
-        <TouchableOpacity onPress={() => this.newDeckCall()}>
-          <Text>Add Deck</Text>
+        <TouchableOpacity style={styles.buttonToggle} onPress={() => this.newDeckCall()}>
+          <Text style={styles.buttonToggleText}>Add Deck</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
     )
@@ -71,5 +71,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: gray,
     margin: 10
-  }
+  },
+  buttonToggle: {
+    paddingTop: 12,
+    paddingBottom: 12,
+    paddingLeft: 12,
+    paddingRight: 12,
+    margin: 12,
+    backgroundColor: yellow,
+    width: 300
+  },
+  buttonToggleText: {
+    color: blue,
+    fontSize: 24,
+    textAlign: 'center',
+  },
 });

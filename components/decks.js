@@ -16,7 +16,7 @@ class Decks extends Component {
     console.log('render decks component', this.props.decks, this.props.keys)
     loading = (this.props.keys && this.props.keys.length > 0) ? false: true
     return (
-      <ScrollView style={{backgroundColor: 'white'}}>
+      <ScrollView style={{backgroundColor: white}}>
       <StatusBar barStyle="light-content"/>
         <View style={styles.container}>
         {(!loading) && this.props.keys.map((key, i) => (
@@ -144,6 +144,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 14,
-    color: gray
+    color: gray,
+    textAlign: 'center',
   }
 });

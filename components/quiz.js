@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native';
-import { purple, white, red, black, gray } from '../utils/colors'
+import { yellow, white, red, black, gray, green, blue } from '../utils/colors'
 import { setLocalNotification, clearLocalNotification } from '../utils/notifications'
 
 
@@ -20,46 +20,46 @@ export default class Decks extends Component {
       this.state.showResult 
       ? (
         <View style={styles.container}>
-          <Text>
+          <Text style={styles.title}>
             Grade {this.state.userGrade} of {this.state.cards.length}
           </Text>
-          <TouchableOpacity onPress={() => this.restartQuiz()}>
-            <Text>Restart Quiz</Text>
+          <TouchableOpacity style={styles.button1} onPress={() => this.restartQuiz()}>
+            <Text style={styles.button1Text}>Restart Quiz</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-            <Text>Back to Deck</Text>
+          <TouchableOpacity style={styles.button2} onPress={() => this.props.navigation.goBack()}>
+            <Text style={styles.button2Text}>Back to Deck</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Decks')}>
-            <Text>Back to Home</Text>
+          <TouchableOpacity style={styles.buttonToggle} onPress={() => this.props.navigation.navigate('Decks')}>
+            <Text style={styles.buttonToggleText}>Back to Home</Text>
           </TouchableOpacity>
         </View>
       ) : (
         <View style={styles.container}>
-          <View>
-            <Text>
+          <View> style={styles.card}
+            <Text style={styles.title}>
               Question {this.state.id + 1} / {this.state.cards.length}
             </Text>
           </View>
-          <Animated.View style={{ opacity: questionOpacityValue }}>
-            <Text style={styles.title}>
+          <Animated.View style={{ opacity: questionOpacityValue, alignItems: 'center' }}>
+            <Text style={styles.text}>
               {cards[id].question}
             </Text>
-            <TouchableOpacity onPress={() => this.showAnswer()}>
-              <Text>Show Answer</Text>
+            <TouchableOpacity style={styles.buttonToggle} onPress={() => this.showAnswer()}>
+              <Text style={styles.buttonToggleText}>Show Answer</Text>
             </TouchableOpacity>
           </Animated.View>
-          <Animated.View style={{ opacity: answerOpacityValue }}>
-            <Text style={styles.title}>
+          <Animated.View style={{ opacity: answerOpacityValue, alignItems: 'center' }}>
+            <Text style={styles.text}>
               {cards[id].answer}
             </Text>
-            <TouchableOpacity onPress={() => this.showQuestion(false)}>
-              <Text>Show Question</Text>
+            <TouchableOpacity style={styles.buttonToggle} onPress={() => this.showQuestion(false)}>
+              <Text style={styles.buttonToggleText}>Show Question</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.answer(true)}>
-              <Text>Correct</Text>
+            <TouchableOpacity style={styles.button2} onPress={() => this.answer(true)}>
+              <Text style={styles.button2Text}>Correct</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.answer(false)}>
-              <Text>Incorrect</Text>
+            <TouchableOpacity style={styles.button1} onPress={() => this.answer(false)}>
+              <Text style={styles.button1Text}>Incorrect</Text>
             </TouchableOpacity>
           </Animated.View>
         </View>
@@ -128,13 +128,60 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  card: {
+    margin: 20,
+    padding: 10,
+  },
   title: {
-    fontSize: 22,
+    fontSize: 40,
     color: black,
     margin: 10
   },
   text: {
-    fontSize: 14,
-    color: gray
+    fontSize: 24,
+    color: gray,
+    textAlign: 'center',
+  },
+  buttonToggle: {
+    paddingTop: 12,
+    paddingBottom: 12,
+    paddingLeft: 12,
+    paddingRight: 12,
+    margin: 12,
+    backgroundColor: yellow,
+    width: 300
+  },
+  buttonToggleText: {
+    color: blue,
+    fontSize: 24,
+    textAlign: 'center',
+  },
+  button1: {
+    paddingTop: 12,
+    paddingBottom: 12,
+    paddingLeft: 12,
+    paddingRight: 12,
+    margin: 12,
+    backgroundColor: red,
+    width: 300
+  },
+  button1Text: {
+    color: gray,
+    fontSize: 24,
+    textAlign: 'center',
+  },
+  button2: {
+    paddingTop: 12,
+    paddingBottom: 12,
+    paddingLeft: 12,
+    paddingRight: 12,
+    margin: 20,
+    backgroundColor: green,
+    width: 300
+  },
+  button2Text: {
+    color: gray,
+    fontSize: 24,
+    textAlign: 'center',
   }
 });
