@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, TextInput, AsyncStorage } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'react-native'
 import { blue, white, yellow, black, gray } from '../utils/colors'
-import { Dimensions } from 'react-native'
 
 import { addCard } from '../redux/actions/index'
 
@@ -17,7 +16,6 @@ class AddCard extends Component {
   deckName = this.props.navigation.state.params.deckName
 
   render() {
-    console.log('addCard Component', this.state, this.deck, this.deckName)
     return (
       <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.title}>
@@ -58,7 +56,7 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(AddCard);
+export default connect(null, mapDispatchToProps)(AddCard)
 
 const styles = StyleSheet.create({
   container: {
@@ -96,4 +94,4 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: 'center',
   },
-});
+})

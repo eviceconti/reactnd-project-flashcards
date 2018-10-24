@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { purple, white, red, black, gray, green } from '../utils/colors'
-import { Dimensions } from 'react-native';
-
-const { width } = Dimensions.get('window')
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { white, red, black, gray, green } from '../utils/colors'
 
 export default class Decks extends Component {
   deck = this.props.navigation.state.params.deck
@@ -11,7 +8,6 @@ export default class Decks extends Component {
   addCard = this.props.navigation.state.params.addCard
 
   render() {
-    console.log('render deck component',this.deck, this.deckName, this.addCard);
     return (
       <View style={styles.container}>
         <View style={styles.card}>
@@ -96,4 +92,4 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: 'center',
   }
-});
+})

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native';
+import React, { Component } from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, Animated } from 'react-native'
 import { yellow, white, red, black, gray, green, blue } from '../utils/colors'
 import { setLocalNotification, clearLocalNotification } from '../utils/notifications'
 
@@ -184,4 +184,4 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: 'center',
   }
-});
+})

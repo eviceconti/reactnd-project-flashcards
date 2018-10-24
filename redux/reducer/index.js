@@ -16,11 +16,8 @@ export default reducer = (state = initialState, action) => {
       }
     case ADD_CARD :
       const { deckName, question, answer } = action.payload
-      console.log(deckName, question, answer, state)
       let newCards = [ ...state.decks[deckName].cards ]
-      console.log(newCards)
       newCards.push({ question, answer })
-      console.log(newCards)
       return {
         ...state,
         decks: {
@@ -39,7 +36,6 @@ export default reducer = (state = initialState, action) => {
         ...state.decks,
         [newDeckName]: { cards: [] }
       }
-      console.log(state, newKeys, newDecks)
       return {
         ...state,
         keys: newKeys,

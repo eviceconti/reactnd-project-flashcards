@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 
 import reducer from './redux/reducer/index'
@@ -37,7 +37,7 @@ const Tabs = createBottomTabNavigator({
       fontSize: 20,
     }
   }
-});
+})
 
 const MainNavigator = createStackNavigator({
   Home: {
@@ -94,7 +94,6 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('oi')
     setLocalNotification()
   }
 }
@@ -106,4 +105,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   }
-});
+})

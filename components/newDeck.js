@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, TextInput, AsyncStorage } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'react-native'
 import { yellow, white, blue, black, gray } from '../utils/colors'
-import { Dimensions } from 'react-native'
 
 import { addDeck } from '../redux/actions/index'
 
@@ -12,7 +11,6 @@ class NewDeck extends Component {
   }
 
   render() {
-    console.log('newDeck Component', this.state)
     return (
       <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.title}>
@@ -48,7 +46,7 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(null, mapDispatchToProps)(NewDeck);
+export default connect(null, mapDispatchToProps)(NewDeck)
 
 const styles = StyleSheet.create({
   container: {
@@ -86,4 +84,4 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: 'center',
   },
-});
+})

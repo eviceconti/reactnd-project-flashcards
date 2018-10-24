@@ -4,7 +4,6 @@ import { Notifications, Permissions } from 'expo'
 const NOTIFICATION_KEY = 'notifications'
 
 export function clearLocalNotification () {
-  console.log('clear')
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
 	.then(Notifications.cancelAllScheduledNotificationAsync)
 }
@@ -26,7 +25,6 @@ export function clearLocalNotification () {
 }
 
  export function setLocalNotification () {
-   console.log('enter local notification')
   AsyncStorage.getItem(NOTIFICATION_KEY)
 	.then(JSON.parse)
 	.then((data) => {

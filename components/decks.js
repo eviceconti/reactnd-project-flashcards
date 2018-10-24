@@ -3,17 +3,16 @@ import { connect } from 'react-redux'
 import { StyleSheet, Text, View, ScrollView, TouchableOpacity, AsyncStorage, StatusBar } from 'react-native'
 
 import { setDecks } from '../redux/actions/index'
-import { purple, white, red, black, gray } from '../utils/colors'
-import { Dimensions } from 'react-native';
+import { white, black, gray } from '../utils/colors'
+import { Dimensions } from 'react-native'
 
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 class Decks extends Component {
   decks = {}
   keys = []
 
   render() {
-    console.log('render decks component', this.props.decks, this.props.keys)
     loading = (this.props.keys && this.props.keys.length > 0) ? false: true
     return (
       <ScrollView style={{backgroundColor: white}}>
@@ -67,25 +66,20 @@ class Decks extends Component {
     AsyncStorage.getAllKeys()
       .then(keys => {
         const asyncKeys = keys
-        console.log('keys', asyncKeys)
         let asyncDecks = false
         asyncKeys.map(key => {
           if (key === 'decks') {
             asyncDecks = true
           }
         })
-        console.log(asyncDecks)
         if (!asyncDecks) {
-          console.log('if')
           AsyncStorage.setItem('decks', JSON.stringify(initialDecks))
           AsyncStorage.setItem('keys', JSON.stringify(initialKeys))
           this.props.setDecks(initialDecks, initialKeys)
         } else {
-          console.log('else')
           AsyncStorage.getItem('decks')
             .then(resp => JSON.parse(resp))
             .then(decks => {
-              console.log(decks)
               this.decks = decks
             })
           AsyncStorage.getItem('keys')
@@ -95,7 +89,7 @@ class Decks extends Component {
               this.props.setDecks(this.decks, this.keys)
             })
         }
-      });
+      })
   }
 
   componentDidUpdate() {
@@ -109,7 +103,7 @@ function mapStateToProps(state) {
   return {
     keys: state.keys,
     decks: state.decks
-  };
+  }
 }
 
 function mapDispatchToProps(dispatch) {
@@ -118,7 +112,7 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Decks);
+export default connect(mapStateToProps, mapDispatchToProps)(Decks)
 
 const styles = StyleSheet.create({
   container: {
@@ -147,4 +141,4 @@ const styles = StyleSheet.create({
     color: gray,
     textAlign: 'center',
   }
-});
+})

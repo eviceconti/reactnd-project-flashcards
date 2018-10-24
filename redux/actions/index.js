@@ -5,7 +5,6 @@ export const ADD_DECK = 'ADD_DECK'
 
 // actions
 export const setDecks = (decks, keys) => {
-  console.log(decks, keys)
   return {
     type: SET_DECKS,
     payload: { decks, keys }
